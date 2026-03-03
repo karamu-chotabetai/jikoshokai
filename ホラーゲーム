@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE ESCAPE - 絶望の密室</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #050000;
+            color: #8b0000; /* 深い赤 */
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 画面全体のノイズ風背景エフェクト */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 20%, black 150%);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 5;
+        }
+
+        /* タイトル：不気味に明滅するアニメーション */
+        h1 {
+            font-size: 5rem;
+            letter-spacing: 0.5rem;
+            margin: 0;
+            text-transform: uppercase;
+            animation: flicker 3s infinite;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+            20%, 24%, 55% { opacity: 0.3; text-shadow: none; }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #444;
+            margin-bottom: 4rem;
+        }
+
+        /* メニューボタン */
+        .menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .menu-item {
+            margin: 20px 0;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.5s;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            color: #ff0000;
+            text-shadow: 0 0 15px #ff0000;
+            transform: scale(1.1);
+        }
+
+        .menu-item::before {
+            content: '> ';
+            opacity: 0;
+        }
+
+        .menu-item:hover::before {
+            opacity: 1;
+        }
+
+        /* 懐中電灯のような光の演出 */
+        .flashlight {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+    <div class="flashlight" id="flashlight"></div>
+
+    <div class="container">
+        <p class="subtitle">WADA PRESENTS</p>
+        <h1>絶望の密室</h1>
+        <ul class="menu">
+            <li class="menu-item" onclick="startGame()">扉を開ける</li>
+            <li class="menu-item">設定を引き出す</li>
+            <li class="menu-item">過去を振り返る</li>
+        </ul>
+    </div>
+
+    <script>
+        // マウスの動きに合わせて懐中電灯を動かす
+        const flashlight = document.getElementById('flashlight');
+        document.addEventListener('mousemove', (e) => {
+            flashlight.style.left = e.pageX - 200 + 'px';
+            flashlight.style.top = e.pageY - 200 + 'px';
+        });
+
+        function startGame() {
+            alert('…カチッ。扉の鍵が開いた音がした。');
+            // ここにゲーム本編への遷移処理を書く
+        }
+    </script>
+</body>
+</html>
