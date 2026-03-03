@@ -1,1 +1,96 @@
-私は和田彩佳です
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WADA | Portfolio</title>
+    <style>
+        :root {
+            --bg: #050505;
+            --text: #ffffff;
+            --accent: #666666;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 1.2s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .surname {
+            font-size: 8rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 1;
+            margin: 0;
+            background: linear-gradient(180deg, #fff 0%, #333 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .line {
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+            margin: 2rem auto;
+        }
+
+        .bio {
+            font-size: 0.9rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .nav {
+            margin-top: 3rem;
+        }
+
+        .nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 0.8rem;
+            border-bottom: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .nav a:hover {
+            border-bottom: 1px solid var(--text);
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="surname">WADA</h1>
+        <div class="line"></div>
+        <p class="bio">Thinker / Creator / Seeker</p>
+        
+        <nav class="nav">
+            <a href="#">ABOUT</a>
+            <a href="#">WORKS</a>
+            <a href="#">CONTACT</a>
+        </nav>
+    </div>
+
+</body>
+</html>
