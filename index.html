@@ -2,95 +2,77 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WADA | Portfolio</title>
+    <title>ESCAPE FROM THE DARK</title>
     <style>
-        :root {
-            --bg: #050505;
-            --text: #ffffff;
-            --accent: #666666;
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; color: #fff; overflow: hidden; font-family: "serif"; }
+        
+        /* 懐中電灯エフェクト */
+        #light-mask {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle 150px at var(--x) var(--y), transparent 0%, rgba(0,0,0,0.98) 100%);
+            pointer-events: none; z-index: 10;
         }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
+        #game-container { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
 
-        .container {
-            text-align: center;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeIn 1.2s ease-out forwards;
+        /* 調べる対象（隠されている） */
+        .object {
+            position: absolute; cursor: pointer; opacity: 0.1; /* 懐中電灯がないとほぼ見えない */
+            transition: opacity 0.3s; color: #444; border: 1px dashed #222; padding: 10px;
         }
+        .object:hover { opacity: 1; color: #fff; border-color: #800; }
 
-        @keyframes fadeIn {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .surname {
-            font-size: 8rem;
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            line-height: 1;
-            margin: 0;
-            background: linear-gradient(180deg, #fff 0%, #333 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .line {
-            width: 50px;
-            height: 2px;
-            background-color: var(--accent);
-            margin: 2rem auto;
-        }
-
-        .bio {
-            font-size: 0.9rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--accent);
-        }
-
-        .nav {
-            margin-top: 3rem;
-        }
-
-        .nav a {
-            color: var(--text);
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 0.8rem;
-            border-bottom: 1px solid transparent;
-            transition: 0.3s;
-        }
-
-        .nav a:hover {
-            border-bottom: 1px solid var(--text);
-            color: #ccc;
+        /* メッセージ表示 */
+        #msg-box {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 80%; background: rgba(0,0,0,0.8); border: 1px solid #800;
+            padding: 20px; z-index: 20; display: none; text-shadow: 0 0 5px #f00;
         }
     </style>
 </head>
-<body>
+<body style="--x: 50%; --y: 50%;">
 
-    <div class="container">
-        <h1 class="surname">WADA</h1>
-        <div class="line"></div>
-        <p class="bio">Thinker / Creator / Seeker</p>
-        
-        <nav class="nav">
-            <a href="#">ABOUT</a>
-            <a href="#">WORKS</a>
-            <a href="#">CONTACT</a>
-        </nav>
+    <div id="light-mask"></div>
+
+    <div id="game-container">
+        <!-- 部屋のオブジェクト -->
+        <div class="object" style="top: 20%; left: 30%;" onclick="check('desk')">[ 古びた机 ]</div>
+        <div class="object" style="top: 60%; left: 70%;" onclick="check('door')">[ 鉄の扉 ]</div>
+        <div class="object" style="top: 40%; left: 50%;" onclick="check('memo')">[ 紙切れ ]</div>
     </div>
 
+    <div id="msg-box" onclick="this.style.display='none'"></div>
+
+    <script>
+        let hasKey = false;
+        const msgBox = document.getElementById('msg-box');
+
+        // 懐中電灯の追従
+        document.addEventListener('mousemove', e => {
+            document.body.style.setProperty('--x', e.clientX + 'px');
+            document.body.style.setProperty('--y', e.clientY + 'px');
+        });
+
+        function showMsg(text) {
+            msgBox.innerText = text;
+            msgBox.style.display = 'block';
+        }
+
+        function check(target) {
+            if (target === 'desk') {
+                showMsg('机の引き出しの奥に「錆びた鍵」を見つけた。');
+                hasKey = true;
+            } else if (target === 'memo') {
+                showMsg('「…出タイナラ、鍵ヲ探セ…」血のような文字で書かれている。');
+            } else if (target === 'door') {
+                if (hasKey) {
+                    showMsg('鍵が合った！扉が重々しく開き、あなたは脱出に成功した。');
+                    setTimeout(() => alert('HAPPY ENDING'), 1000);
+                } else {
+                    showMsg('鍵がかかっている。どこかに鍵があるはずだ。');
+                }
+            }
+        }
+    </script>
 </body>
 </html>
